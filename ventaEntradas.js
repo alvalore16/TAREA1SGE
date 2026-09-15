@@ -39,24 +39,33 @@ function seleccionarPeli(){
 /*Se dibujan las localidades de la sala diferenciando si están disponibles o no  */
 function pintarButacas(){
     contenedor.innerHTML="<br>";
-    contenedor.innerHTML+="<h3>SALA DE CINE</h3>"
+    contenedor.innerHTML+="<h3>SALA DE CINE</h3>";
+
     for (i=1;i<=numButacas;i++){
-            if (vendidas.includes(i)){
-                contenedor.innerHTML+="<button id='butaca"+i+"' class='ocupado'>"+i+"</button> ";
-            }
-            else{
-                contenedor.innerHTML+="<button id='butaca"+i+"' class='libre' onclick='seleccionar();' title='Seleccionar asiento'>"+i+"</button> ";
-            }
-            if (i%15==0){
-                contenedor.innerHTML+="<br>";
-            }
-        }
-        if (numButacas==vendidas.length){
-            contenedor.innerHTML+="<br><img  src='img/soldout.png' alt='Sin localidades'title='Localidades agotadas. Seleccione otra película.'>"
+        if (vendidas.includes(i)){
+            contenedor.innerHTML+="<button id='butaca"+i+"' class='ocupado'>"+i+"</button> ";
         }
         else{
-            contenedor.innerHTML+="<br><br><button id='btnConfirm' onclick='confirmarVenta();' title='Comprar entradas'>Comprar</button>"
+            contenedor.innerHTML+="<button id='butaca"+i+"' class='libre' onclick='seleccionar();' title='Seleccionar asiento'>"+i+"</button> ";
         }
+
+        if (i%15==0){
+            contenedor.innerHTML+="<br>";
+        }
+    }
+
+    if (numButacas==vendidas.length){
+        contenedor.innerHTML+="<br><img src='img/soldout.png' alt='Sin localidades' title='Localidades agotadas. Seleccione otra película.'>";
+    }
+    else{
+        contenedor.innerHTML+="<br><br><button id='btnConfirm' onclick='confirmarVenta();' title='Comprar entradas'>Comprar</button>";
+
+        // Aviso del 50%
+        if (vendidas.length > numButacas * 0.5){
+            contenedor.innerHTML+="<br><br><p>WARNING: Más del 50% de las localidades están ocupadas. ¡Apresúrate con tu reserva!</p>";
+        }
+
+    }
 }
 
 /*Cuando se selecciona una localidad se comprueba si esta libre y se guarda o se borra
